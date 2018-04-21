@@ -2,11 +2,11 @@ const telnet = require('telnet2')
 const logger = require('./log')
 const screen = require('./screen')
 
-exports.startServer = (port) => {
+exports.startServer = (port, inputHandler) => {
     logger.info({port}, `net.startServer: starting`)
 
     telnet({ tty: true }, (client) => {
-        var scr = screen.createScreen(client)
+        var scr = screen.createScreen(client, inputHandler)
 
         client.on('term', (terminal) => {
             scr.terminal = terminal
